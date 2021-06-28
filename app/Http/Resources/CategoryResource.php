@@ -21,7 +21,7 @@ class CategoryResource extends JsonResource
             'path' => $this->path,
             'is_active' => $this->is_active,
             'is_root' => $this->is_root,
-            'parent_id' =>$this->when(Auth::user()->parent_id, $this->parent_id)
+            'parent_id' =>$this->parent_id
         ];
     }
 }
