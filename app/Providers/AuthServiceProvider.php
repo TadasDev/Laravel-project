@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Policies\CategoryPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Tests\Feature\Http\Controllers\CategoryControllerApiTest;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        CategoryControllerApiTest::class => CategoryPolicy::class,
     ];
 
     /**

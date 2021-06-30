@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'path' => '/1/',
+            'path' => '1/1/8',
             'is_active' => $this->faker->boolean(),
             'is_root' => 0,
         ];

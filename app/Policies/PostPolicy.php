@@ -26,4 +26,10 @@ class PostPolicy
         return $post->user_id !== $user->id
             && $post->starredBy($user) === true;
     }
+
+    public function update(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id || $user->is_admin;
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\PostApiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 
@@ -18,3 +19,5 @@ use App\Http\Controllers\Api\UserController;
 Route::middleware('auth.basic')->apiResource('/user', UserController::class);
 
 Route::middleware('auth.basic')->apiResource('/category', CategoryController::class);
+
+Route::apiResource('/post', PostApiController::class);

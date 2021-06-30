@@ -2,67 +2,56 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use App\Service\CategoryManager;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoryController extends Controller
 {
-    public function index()
+    private $categoryManager;
+
+    public function __construct(CategoryManager $categoryManager)
+    {
+        $this->categoryManager = $categoryManager;
+    }
+
+    public function index(): Collection
     {
         return Category::all();
-
     }
 
-    public function store(Request $request)
+    public function store(Request $request ): Category
     {
-        $category = Category::create([
-            'name' => $request['name'],
-            'path' => $request['path'],
-            'is_active' => $request['is_active'],
-            'is_root' => $request['is_root'],
-            'parent_id' => $request['parent_id'],
-        ]);
+        $this->authorize('store',Category::class);
 
-        $categories = Category::with('children')->where('parent_id',5)->get();
-
-        dd($categories);
-        die();
-//        $catpath = Category::all();
-//
-//        foreach ($catpath as $value){
-//            $path = $value->path;
-//
-//            $pathExploded = explode('/',$path); //  [1,2,3]
-//
-//            $pathLenght = count($pathExploded); // 3 levels
-//
-////            dd($pathLenght);
-
-
-
-        return response()->json($categories);
+        return $this->categoryManager->create($request);
     }
 
-    public function show(Category $category):CategoryResource
+    public function show(Category $category): Category
     {
-
-            return new CategoryResource($category);
+        return $category;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category): Category
+
     {
-        //
+        $this->authorize('update',$category);
+
+        $category->update($request->only(['name', 'is_active', 'parent_id']));
+
+        return $category;
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $category): JsonResponse
     {
+        $this->authorize('destroy',$category);
 
         $category->delete();
 
-        return response()->json([],204);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
