@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\PostCreated;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Post;
-use App\Service\PostImagesManager;
 use App\Service\PostManager;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+
 
 
 class PostApiController extends Controller
