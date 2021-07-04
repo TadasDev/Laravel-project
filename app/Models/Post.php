@@ -18,6 +18,10 @@ class Post extends Model
         'show_phone_number',
         'expires_at',
     ];
+    /**
+     * @var mixed
+     */
+
 
     public function user()
     {

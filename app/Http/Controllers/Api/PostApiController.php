@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Service\PostManager;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Service\CurrencyConverter;
 
 
 
@@ -13,20 +15,29 @@ class PostApiController extends Controller
 {
     private $postManager;
 
+    public $currencyConverter;
+
     public function __construct(
+        CurrencyConverter $currencyConverter,
         PostManager $postManager
+
     ) {
         $this->middleware('auth.basic', ['except' => [
             'index',
             'show'
         ]]);
-
+        $this->currencyConverter = $currencyConverter;
         $this->postManager = $postManager;
     }
 
+
     public function index()
     {
-        return Post::all()->where('status','active');
+           $posts =  Post::all();
+           foreach ($posts as $post){
+              $this->setUsdPriceOnPost($post);
+           }
+           return $posts;
     }
 
     public function store(Request $request): Post
@@ -45,7 +56,7 @@ class PostApiController extends Controller
 
     public function show(Post $post):Post
     {
-            return $post;
+            return $this->setUsdPriceOnPost($post);
     }
 
 
@@ -66,5 +77,10 @@ class PostApiController extends Controller
         $post->delete();
 
         return response()->json([], 204);
+    }
+
+    public function setUsdPriceOnPost(Post $post )
+    {
+        return  $post->setAttribute('priceUsd',$this->currencyConverter->convertToUsd($post->price));
     }
 }

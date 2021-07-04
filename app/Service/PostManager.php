@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use DateTime;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
