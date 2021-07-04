@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
@@ -31,9 +32,9 @@ Route::get('/register', [RegistrationController::class, 'index'])
     ->name('authentication.registration');
 Route::post('/register', [RegistrationController::class, 'save']);
 //
-Route::get('/profile/edit',[Controller::class,'view'])
+Route::get('/profile/edit',[UserController::class,'view'])
     ->name('profile.edit');
-Route::post('/profile/edit',[Controller::class,'edit']);
+Route::post('/profile/edit',[UserController::class,'edit']);
 
 
 // content routes

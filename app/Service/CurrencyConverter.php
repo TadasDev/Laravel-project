@@ -8,8 +8,7 @@ class CurrencyConverter{
 
     private const CURRENCY_API_URL = 'https://free.currconv.com/api/v7/convert';
 
-    public function getUsdRate()
-
+    public function getUsdRate():float
     {
         $apiKey = env('CURRENCY_CONVERTER_API_KEY');
 
@@ -29,7 +28,7 @@ class CurrencyConverter{
     }
 
 
-    public function convertToUsd($priceInEur)
+    public function convertToUsd($priceInEur): float
     {
 
         $rate = $this->getUsdRate();

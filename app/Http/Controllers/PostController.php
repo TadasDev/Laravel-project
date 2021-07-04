@@ -8,7 +8,6 @@ use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Service\PostManager;
-use App\Service\PostMailService;
 use App\Service\PostImagesManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
@@ -22,7 +21,7 @@ class PostController extends Controller
 
     public function __construct(
         PostManager $postManager,
-        PostImagesManager $postImagesManager,
+        PostImagesManager $postImagesManager
     ) {
         $this->middleware('auth', ['except' => [
             'index'
@@ -73,13 +72,13 @@ class PostController extends Controller
             ['show_phone_number' => $request->has('show_phone_number')]
         );
 
-        $post = $this->postManager->create($request->user(), $data);
-
-        PostCreated::dispatch($post);
-
-        if ($request->hasFile('images')) {
-            $this->postImagesManager->appendToPost($post, $request->file('images'));
-        }
+//        $post = $this->postManager->create($request->user(), $data);
+//
+//        PostCreated::dispatch($post);
+//
+//        if ($request->hasFile('images')) {
+//            $this->postImagesManager->appendToPost($post, $request->file('images'));
+//        }
 
         return redirect()->route('dashboard');
     }

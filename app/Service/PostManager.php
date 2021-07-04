@@ -13,10 +13,10 @@ class PostManager
      * @param User $user
      * @param array $data
      *
-     * @return Post
+     * @return Post|\Illuminate\Database\Eloquent\Model
      * @throws ValidationException
      */
-    public function create(User $user, array $data): Post
+    public function create(User $user, array $data)
     {
         $dateEnd = now()->addDays(60)->format('Y-m-d');
 
