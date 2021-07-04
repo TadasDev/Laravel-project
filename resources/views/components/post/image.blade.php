@@ -4,7 +4,7 @@
         title="Post image"
         width="180"
         height="180"
-    />
+        alt=" Post image "/>
 @else
     <img src="http://suninjuly.github.io/images/bullet_cat.jpg" title="Post image" width="180" height="180">
 @endif

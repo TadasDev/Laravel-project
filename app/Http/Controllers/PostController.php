@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\PostCreated;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\View\View;
@@ -72,13 +71,13 @@ class PostController extends Controller
             ['show_phone_number' => $request->has('show_phone_number')]
         );
 
-//        $post = $this->postManager->create($request->user(), $data);
-//
+        $post = $this->postManager->create($request->user(), $data);
+
 //        PostCreated::dispatch($post);
 //
-//        if ($request->hasFile('images')) {
-//            $this->postImagesManager->appendToPost($post, $request->file('images'));
-//        }
+        if ($request->hasFile('images')) {
+            $this->postImagesManager->appendToPost($post, $request->file('images'));
+        }
 
         return redirect()->route('dashboard');
     }
