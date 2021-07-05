@@ -19,6 +19,11 @@
                 <a href="{{ route('dashboard') }}">Dashboard</a>
             </li>
             @endauth
+            @auth
+                <li class="p-4">
+                    <a href="{{ route('notification.preferences') }}">Notification preferences</a>
+                </li>
+            @endauth
             <li class="p-4">
                 <a href="{{ route('posts.list') }}">Posts</a>
             </li>

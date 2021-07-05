@@ -24,7 +24,7 @@ class NotifyExpiringPosts extends Command
      *
      * @var string
      */
-    protected $description = 'Sends notifications to users about expiring posts';
+    protected $description = 'Sends notification to users about expiring posts';
     /**
      * @var PostMailService
      */
