@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Notifications;
 use App\Policies\CategoryPolicy;
+use App\Policies\NotificationsPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Tests\Feature\Http\Controllers\CategoryControllerApiTest;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        CategoryControllerApiTest::class => CategoryPolicy::class,
+        Category::class => CategoryPolicy::class,
+        Notifications::class => NotificationsPolicy::class
     ];
 
     /**

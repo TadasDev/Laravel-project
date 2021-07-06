@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Service\PostManager;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Service\CurrencyConverter;
 

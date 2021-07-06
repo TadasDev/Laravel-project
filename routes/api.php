@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\NotificationsApiController;
 use App\Http\Controllers\Api\PostApiController;
 use App\Http\Controllers\Api\TestApiController;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,5 @@ Route::middleware('auth.basic')->apiResource('/category', CategoryController::cl
 Route::apiResource('/post', PostApiController::class);
 
 Route::apiResource('/test', TestApiController::class);
+
+Route::apiResource('/notifications', NotificationsApiController::class);

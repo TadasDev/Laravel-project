@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\NotificationPreferenceController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -60,9 +60,9 @@ Route::post('/posts/{post}/stars', [PostsStarsController::class, 'store'])
 Route::delete('/posts/{post}/stars', [PostsStarsController::class, 'destroy'])
     ->name('posts.stars');
 
-Route::get('/notification/preferences', [NotificationPreferenceController::class,'index'])
+Route::get('/notification/preferences', [NotificationController::class,'index'])
     ->name('notification.preferences');
-Route::post('/notification/preferences', [NotificationPreferenceController::class,'store']);
+Route::post('/notification/preferences', [NotificationController::class,'store']);
 
 
 

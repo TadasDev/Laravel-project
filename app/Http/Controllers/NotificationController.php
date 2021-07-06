@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\UserNotifications;
+use App\Models\Notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class NotificationPreferenceController extends Controller
+class NotificationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         return view('notification.preferences', [
@@ -25,18 +20,18 @@ class NotificationPreferenceController extends Controller
     {
 
      $request->validate([
-         'user_id' => ['required'],
-         'category_ids' => ['required']
-     ]) ;
+         'category_id' => ['required']
+     ]);
 
-        $results =  $request->category_ids;
+        $results =  $request->category_id; // Array returned
 
         foreach($results as $result){
-          UserNotifications::create([
+            Notifications::updateOrCreate([
                 'user_id' => Auth::id(),
-                'category_ids' => $result,
+                'category_id' => $result,
             ]);
       }
+
         return redirect()->route('dashboard');
 
     }

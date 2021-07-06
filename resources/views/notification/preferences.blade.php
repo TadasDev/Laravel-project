@@ -7,11 +7,13 @@
                 @csrf
                 @auth
                 <div class="mb-3">
-                    <label for="notification">Subscribe to categories</label>
-                    @error('category_ids')
+                    <label for="notification" class="mb-3 lg:font-semibold"> Subscribe to categories</label>
+                    @error('category_id')
                     <div class="text-red-500 ">{{ $message }}</div>
                     @enderror
-                    <select name="category_ids[]" multiple class="w-full border bg-white rounded px-3 py-2 outline-none text-gray-700">
+                    <select name="category_id[]"
+                            multiple
+                            class="w-full border bg-white rounded px-3 py-2 outline-none text-gray-700">
                         @foreach($categories as $category)
                             <option value="{{ $category['id'] }}">
                                 {{ $category['name'] }}
