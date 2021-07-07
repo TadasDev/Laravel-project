@@ -22,15 +22,16 @@ class NotificationsApiController extends Controller
 
     public function index()
     {
-
         $results = Notifications::all()->where('user_id', Auth::id());
 
-        return NotificationsResource::collection($results);
+       return NotificationsResource::collection($results)->toJson();
 
     }
 
     public function store(Request $request):NotificationsResource
     {
+
+        $this->authorize('rightsToExecute', Notifications::class);
 
         $request->validate([
             'user_id' => ['required'],
@@ -42,43 +43,28 @@ class NotificationsApiController extends Controller
             'category_id' => $request->input('category_id')
         ]);
 
-        return  new NotificationsResource($newUserNotification);
+        return new NotificationsResource($newUserNotification);
 
     }
 
-    public function show($id, Notifications $notifications):Notifications
+    public function show($id,Notifications $notifications)
     {
+        $this->authorize('rightsToExecute', $notifications);
 
-//        dd($user->id === $notifications->user_id); working code
+//        $results = Notifications::where('user_id', Auth::id())->where('id' , $id)->get();
+//
+//       if ($results->IsEmpty()){
+//           return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+//       }
 
-        $this->authorize('show', Notifications::class);
-
-        return Notifications::find($id);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       return NotificationsResource::collection($notifications)->toJson();
 
     }
 
     public function update( $id, Request $request ):NotificationsResource
     {
+
+        $this->authorize('rightsToExecute', Notifications::class);
 
         $userToUpdate = Notifications::find($id);
         $userToUpdate->user_id = $request->input('user_id');
@@ -91,6 +77,15 @@ class NotificationsApiController extends Controller
 
     public function destroy($id): JsonResponse
     {
+
+        $this->authorize('rightsToExecute', Notifications::class);
+
+//        $results = Notifications::where('user_id', Auth::id())->where('id' , $id)->get();
+//
+//        if ($results->IsEmpty()){
+//            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+//        }
+
         Notifications::find($id)->delete();
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);

@@ -3,10 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Category;
-use App\Models\Notifications;
 use App\Policies\CategoryPolicy;
-use App\Policies\NotificationsPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Category::class => CategoryPolicy::class,
-        Notifications::class => NotificationsPolicy::class
+        'App\Notifications' => 'App\Policies\NotificationsPolicy'
     ];
 
     /**
